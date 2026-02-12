@@ -28,6 +28,8 @@
   (menu-bar-mode -1)
   (scroll-bar-mode -1)
 
+  (defalias 'yes-or-no-p 'y-or-n-p)
+
   (global-auto-revert-mode 1)
   (recentf-mode 1)
   (savehist-mode 1)
@@ -38,6 +40,7 @@
 
   :custom
   (inhibit-startup-screen t)
+  (use-dialog-box nil)
 
   (make-backup-files nil)
   (auto-save-default nil)
