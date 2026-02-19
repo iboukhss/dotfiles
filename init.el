@@ -50,8 +50,31 @@
 
 (use-package doom-themes
   :ensure t
-  :config
-  (load-theme 'doom-gruvbox t))
+  :custom
+  (doom-themes-enable-italic nil))
+
+(use-package base16-theme
+  :ensure t)
+
+(use-package tao-theme
+  :ensure t)
+
+(use-package gruber-darker-theme
+  :ensure t)
+
+(use-package nimbus-theme
+  :ensure t)
+
+(load-theme
+ '
+ doom-gruvbox
+ ;;base16-default-dark
+ ;;base16-eighties
+ ;;modus-operandi-tinted
+ ;;tao-yin
+ ;;gruber-darker
+ ;;nimbus
+ t)
 
 ;;; Programming stuff
 
@@ -62,9 +85,15 @@
   (display-line-numbers-grow-only t)
   (display-line-numbers-width 4))
 
+(use-package treesit
+  :custom
+  (treesit-font-lock-level 2))
+
 (use-package cc-mode
   :custom
-  (c-default-style 'stroustrup)
+  (c-default-style '((c-mode   . "stroustrup")
+                     (c++-mode . "stroustrup")
+                     (other    . "stroustrup")))
   (c-basic-offset 4))
 
 (use-package c-ts-mode
@@ -110,7 +139,7 @@
   :init
   (global-corfu-mode 1)
   :custom
-  (corfu-auto nil) ;; Disable autocomplete for now
+  (corfu-auto nil) ; Disable autocomplete for now
   (corfu-cycle t))
 
 (use-package cape
