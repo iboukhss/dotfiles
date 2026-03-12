@@ -27,6 +27,9 @@
 
 (require 'use-package)
 
+(setq-default indent-tabs-mode nil
+              tab-width 4)
+
 (use-package emacs
   :hook
   (before-save . delete-trailing-whitespace)
@@ -41,8 +44,7 @@
   :custom
   (make-backup-files nil)
   (auto-save-default nil)
-  (create-lockfiles nil)
-  (indent-tabs-mode nil))
+  (create-lockfiles nil))
 
 ;;; UI settings
 
@@ -97,8 +99,11 @@
   (c-basic-offset 4))
 
 (use-package c-ts-mode
+  :hook
+  ((c-ts-mode . (lambda () (setq indent-tabs-mode nil)))
+   (c++-ts-mode . (lambda () (setq indent-tabs-mode nil))))
   :custom
-  (c-ts-mode-indent-style 'linux)
+  (c-ts-mode-indent-style 'bsd)
   (c-ts-mode-indent-offset 4))
 
 (setq major-mode-remap-alist
@@ -108,6 +113,8 @@
 (use-package eglot
   :hook
   ((c-mode c++-mode c-ts-mode c++-ts-mode) . eglot-ensure)
+  ((eglot-managed-mode . (lambda ()
+                           (add-hook 'before-save-hook #'eglot-format-buffer nil))))
   :custom
   (eglot-ignored-server-capabilities
    '(:documentOnTypeFormattingProvider :inlayHintProvider)))
